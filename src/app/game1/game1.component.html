@@ -1,2 +1,48 @@
-<h2>This is Game 1</h2>
-<p>Welcome to the first smaller page!</p>
+<div class="family-feud-container">
+    <!-- Question Box -->
+    <div class="question-box">{{ currentQuestion }}</div> 
+    <!-- renders currentQuestion to div -->
+  
+    <!-- Answer Grids -->
+    <div class="answer-grid">
+      <div *ngFor="let answer of answers; let i = index" class="answer-box">
+        <span *ngIf="answer.revealed">{{ answer.text }}</span>
+      </div>
+    </div>
+  
+    <!-- X overlay for wrong answers -->
+     <!-- TODO: need to implement up to 3 x's keep tracking of x click in ke -->
+    <div *ngIf="showXOverlay" class="x-overlay">
+      <div class="x-popup">
+        <h2>{{wrong_answer_count}}</h2>
+        <button (click)="closeXPopup()">Close</button>
+      </div>
+    </div>
+  
+    <!-- Key Registration Dialogues -->
+    <div *ngIf="keyRegistrationInProgress" class="key-registration-popup">
+      <h2>{{ keyRegistrationMessage }}</h2>
+      <!-- <button (click)="stopKeyRegistration()">Stop</button> -->
+    </div>
+  
+    <!-- Control Buttons -->
+    <div class="controls">
+        <!-- Show Register buttons only if key registration is not in progress and keys are not registered -->
+        <button (click)="startKeyRegistration(1)">Register Player 1 Keys</button>
+        <button (click)="startKeyRegistration(2)">Register Player 2 Keys</button>
+        
+        <!-- Show Stop button if key registration is in progress -->
+        <button *ngIf="keyRegistrationInProgress" (click)="stopKeyRegistration()">Stop</button>
+      
+        <!-- Show Start Game button if keys are registered and registration is not in progress -->
+        <button *ngIf="keysRegistered && !keyRegistrationInProgress" (click)="startGame()">Start Game</button>
+      </div>
+      
+  
+    <!-- Display Registered Keys -->
+    <div class="registered-keys">
+      <p>Player 1 Keys: {{ player1Keys.join(', ') }}</p>
+      <p>Player 2 Keys: {{ player2Keys.join(', ') }}</p>
+    </div>
+  </div>
+  
