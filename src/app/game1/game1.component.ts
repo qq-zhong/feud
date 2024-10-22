@@ -9,14 +9,14 @@ import { Component, HostListener } from '@angular/core';
 })
 export class Game1Component {
   answers = [
-    { text: 'Answer 1', revealed: false },
-    { text: 'Answer 2', revealed: false },
-    { text: 'Answer 3', revealed: false },
-    { text: 'Answer 4', revealed: false },
-    { text: 'Answer 5', revealed: false },
-    { text: 'Answer 6', revealed: false },
-    { text: 'Answer 7', revealed: false },
-    { text: 'Answer 8', revealed: false },
+    { text: 'Answer 1', revealed: false, score: 1 },
+    { text: 'Answer 2', revealed: false, score: 1 },
+    { text: 'Answer 3', revealed: false, score: 1 },
+    { text: 'Answer 4', revealed: false, score: 1 },
+    { text: 'Answer 5', revealed: false, score: 1 },
+    { text: 'Answer 6', revealed: false, score: 1 },
+    { text: 'Answer 7', revealed: false, score: 1 },
+    { text: 'Answer 8', revealed: false, score: 1 },
     // add up to 8 answers
   ];
 
