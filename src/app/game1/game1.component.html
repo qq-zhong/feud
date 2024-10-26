@@ -1,12 +1,29 @@
 <div class="family-feud-container">
+  
+    <div class="screen-flash">
+      <div class="flash-left-win" *ngIf="isPlayer1Flashing"><h2>✓</h2></div>
+      <div class="flash-right-loss" *ngIf="isPlayer1Flashing"><h2>X</h2></div>
+      <div class="flash-left-loss" *ngIf="isPlayer2Flashing"><h2>X</h2></div>
+      <div class="flash-right-win" *ngIf="isPlayer2Flashing"><h2>✓</h2></div>
+    </div>
+  
     <!-- Question Box -->
-    <div class="question-box">{{ currentQuestion }}</div> 
+    <!-- <div class="question-box">{{ currentQuestion }}</div>  -->
+
     <!-- renders currentQuestion to div -->
   
+    <!-- Score Box-->
+    <div class="score-box">
+      <div *ngIf="gameStarted" class="score-text">
+        {{ gameScore }}
+      </div>
+      
+    </div>
     <!-- Answer Grids -->
     <div class="answer-grid">
       <div *ngFor="let answer of answers; let i = index" class="answer-box">
-        <span *ngIf="answer.revealed">{{ answer.text }}</span>
+        <span *ngIf="!answer.revealed" class="answer-box-circle">{{ "   " + (i+1) + "   " }}</span>
+        <span *ngIf="answer.revealed">{{ answer.text + ":     " + answer.score }}</span>
       </div>
     </div>
   
@@ -44,8 +61,6 @@
       <p>Player 1 Keys: {{ player1Keys.join(', ') }}</p>
       <p>Player 2 Keys: {{ player2Keys.join(', ') }}</p>
     </div>
-    <div class="adam">
-      Adam was here.
-    </div>
+    
   </div>
   
