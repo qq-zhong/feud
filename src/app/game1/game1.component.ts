@@ -9,13 +9,13 @@ import { Component, HostListener } from '@angular/core';
 })
 export class Game1Component {
   answers = [
-    { text: 'Answer 1', revealed: false, score: 1 },
-    { text: 'Answer 2', revealed: false, score: 1 },
-    { text: 'Answer 3', revealed: false, score: 1 },
-    { text: 'Answer 4', revealed: false, score: 1 },
-    { text: 'Answer 5', revealed: false, score: 1 },
-    { text: 'Answer 6', revealed: false, score: 1 },
-    { text: 'Answer 7', revealed: false, score: 1 },
+    { text: 'Answer 1', revealed: false, score: 35 },
+    { text: 'Answer 2', revealed: false, score: 23 },
+    { text: 'Answer 3', revealed: false, score: 20 },
+    { text: 'Answer 4', revealed: false, score: 12 },
+    { text: 'Answer 5', revealed: false, score: 4 },
+    { text: 'Answer 6', revealed: false, score: 3 },
+    { text: 'Answer 7', revealed: false, score: 2 },
     { text: 'Answer 8', revealed: false, score: 1 },
     // add up to 8 answers
   ];
@@ -23,10 +23,17 @@ export class Game1Component {
   currentQuestion = 'Question to be revealed'; // Example question
   wrong_answer_count = "";
 
+  isPlayer1Flashing = false;
+  isPlayer2Flashing = false;
+
+
+
+
   player1Keys: string[] = [];
   player2Keys: string[] = [];
   keysRegistered = false;
   gameStarted = false;
+  gameScore = 0;
   raceOver = false; // Flag to indicate if race is over
   showXOverlay = false;
   wrongAnswerCount = 0;
@@ -78,12 +85,14 @@ export class Game1Component {
     if (!this.raceOver) {
       if (this.player1Keys.includes(keyPressed)) {
         this.raceOver = true;
-        alert('Player 1 wins the buzz-in!');
+        this.isPlayer1Flashing = true;
         this.showQuestion();
+        setTimeout(() => this.isPlayer1Flashing = false, 1000); // Flash for 1 second
       } else if (this.player2Keys.includes(keyPressed)) {
         this.raceOver = true;
-        alert('Player 2 wins the buzz-in!');
+        this.isPlayer2Flashing = true;
         this.showQuestion();
+        setTimeout(() => this.isPlayer2Flashing = false, 1000); // Flash for 1 second
       }
 
       return;
@@ -99,7 +108,7 @@ export class Game1Component {
       const index = Number(keyPressed) - 1;
       this.revealAnswer(index);
     }
-  }
+  } 
 
   // Add key to the current player's list and remove from the other player's list if needed
   addKeyToPlayer(player: number, keyPressed: string) {
@@ -133,19 +142,23 @@ export class Game1Component {
 
   addX() {
     this.wrongAnswerCount++;
-    this.wrong_answer_count += "X";
+    this.wrong_answer_count += "X ";
     this.showXOverlay = true;
     this.wrongAnswerSound.play();
 
     if (this.wrongAnswerCount === 3) {
       // Handle 3 wrong answers
     }
+    setTimeout(() => {
+      this.showXOverlay = false;
+    }, 3000);
   }
 
   revealAnswer(index: number) {
     if (!this.answers[index].revealed) {
       this.answers[index].revealed = true;
       this.correctAnswerSound.play();
+      this.gameScore += this.answers[index].score
     }
 
     if (this.answers.every(answer => answer.revealed)) {
@@ -159,7 +172,7 @@ export class Game1Component {
 
   startGame() {
     this.gameStarted = true;
-    alert('Game started! First player to press a key in their list wins the buzz-in.');
+    // alert('Game started! First player to press a key in their list wins the buzz-in.');
   }
 
   // Show question after race is over
