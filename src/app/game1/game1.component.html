@@ -23,7 +23,7 @@
     <div class="answer-grid">
       <div *ngFor="let answer of answers; let i = index" class="answer-box">
         <span *ngIf="!answer.revealed" class="answer-box-circle">{{ "   " + (i+1) + "   " }}</span>
-        <span *ngIf="answer.revealed">{{ answer.text + ":     " + answer.score }}</span>
+        <span *ngIf="answer.revealed">{{ answer.text + " - " + answer.score }}</span>
       </div>
     </div>
   

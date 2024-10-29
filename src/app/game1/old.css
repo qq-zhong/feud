@@ -1,0 +1,68 @@
+.family-feud-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center all child elements horizontally */
+    justify-content: center; /* Center all child elements vertically */
+    width: 100vw; /* Full viewport width */
+    min-height: 100vh; /* Ensure it fills the viewport height */
+    overflow: hidden; /* Prevent overflow */
+    background-image: 
+    /* Light gold dots layer */
+    radial-gradient(circle, rgba(245, 226, 163, 1) 25%, transparent 30%),
+    
+    /* Smooth transition from blue to gold with fading */
+    linear-gradient(90deg, 
+      rgba(30, 58, 138, 0.7), /* Deep blue with transparency */
+      rgba(44, 111, 219, 0.7) 30%, /* Mid blue with transparency */
+      rgba(245, 226, 163, 0.7) 70%, /* Light gold with transparency */
+      rgba(212, 175, 55, 0.7) 100% /* Gold with transparency */
+    );
+    
+    /* Dot size and gradient control */
+    background-size: 50px 50px, 100% 100%;
+  } 
+
+  .score-box {
+    width: 80%; /* Responsive width */
+    max-width: 400px; /* Limit maximum width */
+    height: 150px; /* Set height explicitly */
+    background-color: rgba(28, 78, 148, 0.9);
+    text-align: center; 
+    color: white;
+    font-size: 100px; /* Original font size */
+    line-height: 150px; /* Set line height to match the height */
+    font-family: Helvetica, serif;
+    border: 20px solid #828282; /* Original border */
+    border-radius: 25px; /* Original border radius */
+    margin-bottom: 20px; /* Add margin to separate it from the grid */
+    overflow: hidden; /* Prevent overflow */
+  }
+
+  
+  .answer-grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr; /* Fixed number of columns (3 in this case) */
+    grid-auto-flow: column;
+    gap: 10px; /* Gap between grid items */
+    width: 90%; /* Responsive width */
+    max-width: 1600px; /* Limit maximum width of grid */
+    margin: 20px 0; /* Responsive margin */
+  }
+  
+  .answer-box {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    background-image: linear-gradient(#8ac2e5, #4087e1 55%, #1a64bb 65%, #2b69c0);
+    text-align: center;
+    color: white;
+    font-size: 50px; /* Original font size */
+    font-weight: bold;
+    font-family: Helvetica, serif;
+    text-shadow: 1px 1px 2px black;
+    border: 10px double black; /* Original border */
+    height: 125px; /* Original height */
+    overflow: hidden; /* Prevents width changes due to long text */
+    white-space: nowrap; /* Prevent text wrapping */
+    text-overflow: ellipsis; /* Shows "..." for overflowed text */
+  }

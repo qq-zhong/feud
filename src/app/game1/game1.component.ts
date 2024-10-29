@@ -26,6 +26,8 @@ export class Game1Component {
   isPlayer1Flashing = false;
   isPlayer2Flashing = false;
 
+  revealed_count = 0;
+
 
 
 
@@ -43,9 +45,17 @@ export class Game1Component {
   activePlayerKey: number = 0; // 1 for Player 1, 2 for Player 2
 
   // Sounds
-  wrongAnswerSound = new Audio('assets/wrong-answer.mp3');
+  wrongAnswerSound = new Audio('assets/wrong.mp3');
   correctAnswerSound = new Audio('assets/correct-answer.mp3');
   winningSound = new Audio('assets/winning-sound.mp3');
+  buzzerSound = new Audio('assets/buzz.mp3');
+  newRoundSound = new Audio('assets/come_up_to_play.mp3');
+  rightAnswerSound = new Audio('assets/right_answer.mp3');
+  roundOverSound = new Audio('assets/round_over.mp3');
+
+  ngOnInit(): void {
+    this.newRoundSound.play();
+  }
 
   // Start key registration for a specific player
   startKeyRegistration(player: number) {
@@ -83,16 +93,17 @@ export class Game1Component {
 
     // Game logic: determine who buzzed in first
     if (!this.raceOver) {
+      this.buzzerSound.play()
       if (this.player1Keys.includes(keyPressed)) {
         this.raceOver = true;
         this.isPlayer1Flashing = true;
         this.showQuestion();
-        setTimeout(() => this.isPlayer1Flashing = false, 1000); // Flash for 1 second
+        setTimeout(() => this.isPlayer1Flashing = false, 3000); // Flash for 1 second
       } else if (this.player2Keys.includes(keyPressed)) {
         this.raceOver = true;
         this.isPlayer2Flashing = true;
         this.showQuestion();
-        setTimeout(() => this.isPlayer2Flashing = false, 1000); // Flash for 1 second
+        setTimeout(() => this.isPlayer2Flashing = false, 3000); // Flash for 1 second
       }
 
       return;
@@ -107,6 +118,12 @@ export class Game1Component {
     if (keyPressed >= '1' && keyPressed <= '8') {
       const index = Number(keyPressed) - 1;
       this.revealAnswer(index);
+      this.rightAnswerSound.play();
+      this.revealed_count++;
+
+      if (this.revealed_count == 8){
+        this.roundOverSound.play();
+      }
     }
   } 
 
