@@ -2,6 +2,8 @@ import { Component, HostListener } from '@angular/core';
 
 //TODO: maybe have a manual show question button
 // bug: when buzzing player clicks number key, it shows answer
+// todo: when xxx, x, and 8 is revealed game is playing answer
+// todo: handle wrong answers at buzzer - what if everyone gets it wrong?
 @Component({
   selector: 'app-game1',
   templateUrl: './game1.component.html',
@@ -168,6 +170,10 @@ export class Game1Component {
     }
     setTimeout(() => {
       this.showXOverlay = false;
+      if (this.revealed_count == 0){
+        this.wrongAnswerCount = 0;
+        this.wrong_answer_count = "";
+      }
     }, 3000);
   }
 
