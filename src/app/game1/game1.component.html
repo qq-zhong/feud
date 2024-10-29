@@ -1,10 +1,10 @@
 <div class="family-feud-container">
   
     <div class="screen-flash">
-      <div class="flash-left-win" *ngIf="isPlayer1Flashing"><h2>✓</h2></div>
-      <div class="flash-right-loss" *ngIf="isPlayer1Flashing"><h2>X</h2></div>
-      <div class="flash-left-loss" *ngIf="isPlayer2Flashing"><h2>X</h2></div>
-      <div class="flash-right-win" *ngIf="isPlayer2Flashing"><h2>✓</h2></div>
+      <div class="flash-left-win" *ngIf="isPlayer1Flashing"><h2>✅</h2></div>
+      <div class="flash-right-loss" *ngIf="isPlayer1Flashing"><h2>❌</h2></div>
+      <div class="flash-left-loss" *ngIf="isPlayer2Flashing"><h2>❌</h2></div>
+      <div class="flash-right-win" *ngIf="isPlayer2Flashing"><h2>✅</h2></div>
     </div>
   
     <!-- Question Box -->
@@ -20,12 +20,24 @@
       
     </div>
     <!-- Answer Grids -->
-    <div class="answer-grid">
+    <!-- <div class="answer-grid">
       <div *ngFor="let answer of answers; let i = index" class="answer-box">
         <span *ngIf="!answer.revealed" class="answer-box-circle">{{ "   " + (i+1) + "   " }}</span>
         <span *ngIf="answer.revealed">{{ answer.text + " - " + answer.score }}</span>
       </div>
+    </div> -->
+
+    <div class="answer-grid">
+      <div *ngFor="let answer of answers; let i = index" 
+           class="answer-box" [class.flipped]="answer.revealed">
+        <!-- Front (before reveal) -->
+        <div class="front answer-box-circle">{{ i + 1 }}</div>
+    
+        <!-- Back (after reveal) -->
+        <div class="back">{{ answer.text }} - {{ answer.score }}</div>
+      </div>
     </div>
+    
   
     <!-- X overlay for wrong answers -->
      <!-- TODO: need to implement up to 3 x's keep tracking of x click in ke -->
@@ -45,19 +57,19 @@
     <!-- Control Buttons -->
     <div class="controls">
         <!-- Show Register buttons only if key registration is not in progress and keys are not registered -->
-        <button (click)="startKeyRegistration(1)">Register Player 1 Keys</button>
-        <button (click)="startKeyRegistration(2)">Register Player 2 Keys</button>
+        <button *ngIf="!gameStarted" (click)="startKeyRegistration(1)">Register Player 1 Keys</button>
+        <button *ngIf="!gameStarted" (click)="startKeyRegistration(2)">Register Player 2 Keys</button>
         
         <!-- Show Stop button if key registration is in progress -->
         <button *ngIf="keyRegistrationInProgress" (click)="stopKeyRegistration()">Stop</button>
       
         <!-- Show Start Game button if keys are registered and registration is not in progress -->
-        <button *ngIf="keysRegistered && !keyRegistrationInProgress" (click)="startGame()">Start Game</button>
+        <button *ngIf="keysRegistered && !keyRegistrationInProgress && !gameStarted" (click)="startGame()">Start Game</button>
       </div>
       
   
     <!-- Display Registered Keys -->
-    <div class="registered-keys">
+    <div *ngIf="!gameStarted" class="registered-keys">
       <p>Player 1 Keys: {{ player1Keys.join(', ') }}</p>
       <p>Player 2 Keys: {{ player2Keys.join(', ') }}</p>
     </div>

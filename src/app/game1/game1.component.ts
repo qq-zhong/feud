@@ -9,7 +9,7 @@ import { Component, HostListener } from '@angular/core';
 })
 export class Game1Component {
   answers = [
-    { text: 'Answer 1', revealed: false, score: 35 },
+    { text: 'Answer 1Answer 1Answer 1Answer 1Answer', revealed: false, score: 35 },
     { text: 'Answer 2', revealed: false, score: 23 },
     { text: 'Answer 3', revealed: false, score: 20 },
     { text: 'Answer 4', revealed: false, score: 12 },
@@ -38,6 +38,8 @@ export class Game1Component {
   gameScore = 0;
   raceOver = false; // Flag to indicate if race is over
   showXOverlay = false;
+  canSteal = false;
+  roundOver = false;
   wrongAnswerCount = 0;
 
   keyRegistrationInProgress = false;
@@ -52,6 +54,7 @@ export class Game1Component {
   newRoundSound = new Audio('assets/come_up_to_play.mp3');
   rightAnswerSound = new Audio('assets/right_answer.mp3');
   roundOverSound = new Audio('assets/round_over.mp3');
+  specialSound = new Audio('assets/nothing.mp3');
 
   ngOnInit(): void {
     this.newRoundSound.play();
@@ -93,17 +96,19 @@ export class Game1Component {
 
     // Game logic: determine who buzzed in first
     if (!this.raceOver) {
-      this.buzzerSound.play()
+      
       if (this.player1Keys.includes(keyPressed)) {
+        this.buzzerSound.play()
         this.raceOver = true;
         this.isPlayer1Flashing = true;
         this.showQuestion();
-        setTimeout(() => this.isPlayer1Flashing = false, 3000); // Flash for 1 second
+        setTimeout(() => this.isPlayer1Flashing = false, 2000); // Flash for 1 second
       } else if (this.player2Keys.includes(keyPressed)) {
+        this.buzzerSound.play()
         this.raceOver = true;
         this.isPlayer2Flashing = true;
         this.showQuestion();
-        setTimeout(() => this.isPlayer2Flashing = false, 3000); // Flash for 1 second
+        setTimeout(() => this.isPlayer2Flashing = false, 2000); // Flash for 1 second
       }
 
       return;
@@ -114,16 +119,31 @@ export class Game1Component {
       this.addX();
     }
 
+    if (keyPressed === 'N') {
+      this.specialSound.play();
+    }
+
     // Handle correct answers (keys 1-8)
-    if (keyPressed >= '1' && keyPressed <= '8') {
+    if (keyPressed >= '1' && keyPressed <= '8' && !this.answers[parseInt(keyPressed)-1].revealed) {
       const index = Number(keyPressed) - 1;
       this.revealAnswer(index);
       this.rightAnswerSound.play();
       this.revealed_count++;
+      console.log(this.revealed_count)
 
-      if (this.revealed_count == 8){
-        this.roundOverSound.play();
+      if (this.roundOver == true && this.revealed_count == 8){
+        //this.roundOver = true;
+        setTimeout(() => {
+          this.roundOverSound.play();
+        }, 1400);
       }
+      if ((this.revealed_count == 8 || this.canSteal == true) && this.roundOver == false){
+        this.roundOver = true;
+        setTimeout(() => {
+          this.winningSound.play();
+        }, 1400);
+      }
+      
     }
   } 
 
@@ -158,30 +178,63 @@ export class Game1Component {
   }
 
   addX() {
-    this.wrongAnswerCount++;
-    this.wrong_answer_count += "X ";
-    this.showXOverlay = true;
-    this.wrongAnswerSound.play();
-
-    if (this.wrongAnswerCount === 3) {
-      // Handle 3 wrong answers
+    if(this.roundOver == true)
+    {
+      return;
     }
-    setTimeout(() => {
-      this.showXOverlay = false;
-    }, 3000);
+    if(this.canSteal == true)
+    {
+        //this.wrongAnswerCount++;
+        this.wrong_answer_count = "❌";
+        this.showXOverlay = true;
+        this.wrongAnswerSound.play();
+        setTimeout(() => {
+          this.showXOverlay = false;
+          this.winningSound.play();
+        }, 1400);
+        
+    }
+    else{
+      this.wrongAnswerCount++;
+      this.wrong_answer_count += "❌";
+      this.showXOverlay = true;
+      this.wrongAnswerSound.play();
+      console.log(this.wrong_answer_count);
+  
+      if (this.wrongAnswerCount === 3) {
+        // Handle 3 wrong answers
+        this.canSteal=true;
+        console.log(this.wrong_answer_count);
+        // this.wrongAnswerCount = 0;
+        // this.wrong_answer_count = "";
+      }
+      setTimeout(() => {
+        this.showXOverlay = false;
+      }, 1400);
+    }
+    
   }
 
   revealAnswer(index: number) {
     if (!this.answers[index].revealed) {
       this.answers[index].revealed = true;
       this.correctAnswerSound.play();
-      this.gameScore += this.answers[index].score
+      this.gameScore += this.answers[index].score;
     }
-
-    if (this.answers.every(answer => answer.revealed)) {
-      this.winningSound.play();
-    }
+    // if (this.answers.every(answer => answer.revealed)) {
+    //       this.winningSound.play();
+    //     }
   }
+
+  // stealAnswer() {
+  //   setTimeout(() => {
+  //     this.showXOverlay = false;
+  //   }, 1400);
+  //   this.wrongAnswerCount = 0;
+  //   this.wrong_answer_count += "X ";
+
+  // }
+  
 
   closeXPopup() {
     this.showXOverlay = false;
