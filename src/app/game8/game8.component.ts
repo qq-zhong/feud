@@ -1,22 +1,20 @@
 import { Component, HostListener } from '@angular/core';
 
-//TODO: 
-// todo: once round over stop updating scores
 @Component({
-  selector: 'app-game1',
-  templateUrl: './game1.component.html',
-  styleUrls: ['./game1.component.css']
+  selector: 'app-game8',
+  templateUrl: './game8.component.html',
+  styleUrls: ['./game8.component.css']
 })
-export class Game1Component {
+export class Game8Component {
   answers = [
-    { text: 'BUY A HOUSE/ MOVE OUT', revealed: false, score: 30 },
-    { text: 'BUY A BUNCH OF STUFF', revealed: false, score: 15 },
-    { text: 'INVEST', revealed: false, score: 14 },
-    { text: 'DO NOTHING', revealed: false, score: 13 },
-    { text: 'BUY A CAR', revealed: false, score: 9 },
-    { text: 'TRAVEL', revealed: false, score:  8},
-    { text: 'PAY OFF DEBT', revealed: false, score: 6 },
-    { text: 'GIVE TO CHARITY', revealed: false, score: 5},
+    { text: 'PICKY/ THINK THEIR TASTE IS BETTER', revealed: false, score: 25 },
+    { text: 'KNOWS TOO MUCH MUSIC TRIVIA', revealed: false, score: 15 },
+    { text: 'AUDIOPHILE/HEADPHONES ON', revealed: false, score: 13 },
+    { text: 'LIKES RADIOHEAD', revealed: false, score: 12 },
+    { text: 'DISKLIKES POPULAR MUSIC', revealed: false, score: 11},
+    { text: 'LAST FM/ RYM', revealed: false, score: 10 },
+    { text: 'WEARS MERCH', revealed: false, score: 8 },
+    { text: 'COLLECTS PHYSICAL FORMATS', revealed: false, score: 6 },
     // add up to 8 answers
   ];
 

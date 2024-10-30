@@ -1,22 +1,21 @@
 import { Component, HostListener } from '@angular/core';
 
-//TODO: 
-// todo: once round over stop updating scores
 @Component({
-  selector: 'app-game1',
-  templateUrl: './game1.component.html',
-  styleUrls: ['./game1.component.css']
+  selector: 'app-game4',
+  templateUrl: './game4.component.html',
+  styleUrls: ['./game4.component.css']
 })
-export class Game1Component {
+export class Game4Component {
+
   answers = [
-    { text: 'BUY A HOUSE/ MOVE OUT', revealed: false, score: 30 },
-    { text: 'BUY A BUNCH OF STUFF', revealed: false, score: 15 },
-    { text: 'INVEST', revealed: false, score: 14 },
-    { text: 'DO NOTHING', revealed: false, score: 13 },
-    { text: 'BUY A CAR', revealed: false, score: 9 },
-    { text: 'TRAVEL', revealed: false, score:  8},
-    { text: 'PAY OFF DEBT', revealed: false, score: 6 },
-    { text: 'GIVE TO CHARITY', revealed: false, score: 5},
+    { text: 'COVID', revealed: false, score: 80 },
+    { text: 'BRAT SUMMER', revealed: false, score: 4 },
+    { text: 'ISRAEL/PALESTINE CONFLICT', revealed: false, score: 4 },
+    { text: 'THE OLYMPICS', revealed: false, score: 3 },
+    { text: 'I GRADUATED HIGHSCHOOL', revealed: false, score: 3 },
+    { text: 'WAR IN UKRAINE', revealed: false, score: 2 },
+    { text: 'US ELECTION', revealed: false, score: 2 },
+    { text: 'TITAN SUBMARINE', revealed: false, score: 2 },
     // add up to 8 answers
   ];
 
