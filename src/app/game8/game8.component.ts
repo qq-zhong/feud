@@ -7,12 +7,12 @@ import { Component, HostListener } from '@angular/core';
 })
 export class Game8Component {
   answers = [
-    { text: 'PICKY/ THINK THEIR TASTE IS BETTER', revealed: false, score: 25 },
-    { text: 'KNOWS TOO MUCH MUSIC TRIVIA', revealed: false, score: 15 },
+    { text: "WHAT THEY LIKE IS BETTER", revealed: false, score: 25 },
+    { text: 'KNOWS TOO MUCH MUSIC TRIVIA, NAME 5 SONGS', revealed: false, score: 15 },
     { text: 'AUDIOPHILE/HEADPHONES ON', revealed: false, score: 13 },
-    { text: 'LIKES RADIOHEAD', revealed: false, score: 12 },
-    { text: 'DISKLIKES POPULAR MUSIC', revealed: false, score: 11},
-    { text: 'LAST FM/ RYM', revealed: false, score: 10 },
+    { text: 'LIKES RADIOHEAD, DEATHGRIPS, GODSPEED...', revealed: false, score: 12 },
+    { text: 'HATES POPULAR MUSIC', revealed: false, score: 11},
+    { text: 'LAST.FM/RYM/FANTANO', revealed: false, score: 10 },
     { text: 'WEARS MERCH', revealed: false, score: 8 },
     { text: 'COLLECTS PHYSICAL FORMATS', revealed: false, score: 6 },
     // add up to 8 answers
